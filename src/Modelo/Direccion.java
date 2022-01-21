@@ -6,6 +6,9 @@ public class Direccion {
     private int numero;
     private String ciudad;
     private String pais;
+    private String plantaPuertaOficina;
+    private String region;
+    private boolean valida;
 
 
     public Direccion(int cpostal){

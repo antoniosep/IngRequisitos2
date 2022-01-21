@@ -6,6 +6,8 @@ public class Empresa {
     private String nombre;
     private String nif;
     private Date fechaCierre;
+    private Direccion direccion;
+
 
     public Empresa(String nombre, String nif, Date fechaCierre) {
         this.nombre=nombre;
