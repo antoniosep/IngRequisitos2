@@ -1,8 +1,13 @@
 package GUI_APP;
 
+import Modelo.DBaccess;
+import Modelo.Persona;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class RPersona {
 
@@ -180,8 +185,9 @@ public class RPersona {
         JButton Registrar = new JButton("Registrar");
         Registrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-
+                DBaccess bd= new DBaccess();
+                Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
+                //añadir linea del metodo de DbAccess para registrar la persona
             }
         });
 
