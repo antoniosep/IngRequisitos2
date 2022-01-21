@@ -307,7 +307,7 @@ public class RPersona {
                                                                         .addComponent(pais, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                                 .addGap(43))
                                                         .addGroup(gl_panel.createSequentialGroup()
-                                                                .addComponent(Direccion, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(Direccion, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
                                                 .addGroup(gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addGroup(gl_panel.createSequentialGroup()

@@ -311,7 +311,7 @@ public class REmpresa {
                                 .addGap(20)
                                 .addGroup(gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(gl_panel.createSequentialGroup()
-                                                .addComponent(Direccion, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(Direccion, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
                                                 .addContainerGap())
                                         .addGroup(gl_panel.createSequentialGroup()
                                                 .addGroup(gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)
