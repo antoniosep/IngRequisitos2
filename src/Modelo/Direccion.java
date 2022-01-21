@@ -18,6 +18,9 @@ public class Direccion {
         this.numero = direccion.getNumero();
         this.ciudad = direccion.getCiudad();
         this.pais = direccion.getPais();
+        this.region = direccion.getRegion();
+        this.valida = direccion.isValida();
+        this.plantaPuertaOficina = direccion.getPlantaPuertaOficina();
     }
     public Direccion(int cpostal, String calle, int numero, String ciudad, String pais, String region, int valida, String plantaPuertaOficina) {
         this.cpostal = cpostal;

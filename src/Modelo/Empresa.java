@@ -9,6 +9,7 @@ public class Empresa {
     private Direccion direccion;
 
 
+
     public Empresa(String nombre, String nif, Date fechaCierre) {
         this.nombre=nombre;
         this.nif=nif;
