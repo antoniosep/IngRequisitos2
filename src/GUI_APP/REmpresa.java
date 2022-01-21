@@ -1,5 +1,8 @@
 package GUI_APP;
 
+import Modelo.DBaccess;
+import Modelo.Empresa;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -257,7 +260,8 @@ public class REmpresa {
         JButton Registrar = new JButton("Registrar");
         Registrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                DBaccess bd = new DBaccess();
+                //Empresa e = new Empresa()
             }
         });
 

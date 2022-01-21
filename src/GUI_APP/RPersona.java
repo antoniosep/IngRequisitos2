@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.time.format.DateTimeFormatterBuilder;
+import com.toedter.calendar.JDateChooser;
 
 public class RPersona {
 
@@ -186,7 +187,7 @@ public class RPersona {
         Registrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DBaccess bd= new DBaccess();
-                Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
+               //Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
                 //añadir linea del metodo de DbAccess para registrar la persona
             }
         });
@@ -254,7 +255,11 @@ public class RPersona {
 
         f = new JTextField();
         f.setColumns(10);
+
+
         GroupLayout gl_panel = new GroupLayout(panel);
+        JDateChooser dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("MM-dd-yyyy");//yyyy-dd-MM
         gl_panel.setHorizontalGroup(
                 gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(gl_panel.createSequentialGroup()
@@ -300,7 +305,8 @@ public class RPersona {
                                                                                         .addComponent(pa, GroupLayout.Alignment.LEADING)
                                                                                         .addComponent(cif, GroupLayout.Alignment.LEADING)
                                                                                         .addComponent(contra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(f, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                                                        //.addComponent(f, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                                                        .addComponent(dateChooser, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                                                         .addComponent(c, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(p, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(city, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -365,7 +371,8 @@ public class RPersona {
                                         .addGroup(gl_panel.createSequentialGroup()
                                                 .addGroup(gl_panel.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                         .addComponent(lblFechaNacimiento)
-                                                        .addComponent(f, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                        //.addComponent(f, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(gl_panel.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                         .addGroup(gl_panel.createSequentialGroup()
@@ -379,6 +386,7 @@ public class RPersona {
                                                                         .addComponent(num, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(Snombre))))
                                                 .addGap(13))
+
                                         .addGroup(gl_panel.createSequentialGroup()
                                                 .addComponent(c, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)))
