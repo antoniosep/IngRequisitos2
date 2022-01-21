@@ -9,11 +9,11 @@ public class Empresa {
     private Direccion direccion;
 
 
-
-    public Empresa(String nombre, String nif, Date fechaCierre) {
+    public Empresa(String nombre, String nif, Date fechaCierre, Direccion direccion) {
         this.nombre=nombre;
         this.nif=nif;
         this.fechaCierre=fechaCierre;
+        this.direccion = direccion;
     }
 
     public Empresa(String nif){
@@ -22,6 +22,7 @@ public class Empresa {
         this.nombre = empresa.getNombre();
         this.nif = empresa.getNif();
         this.fechaCierre = empresa.getFechaCierre();
+        this.direccion = empresa.direccion;
     }
 
     public void setNombre(String nombre) {

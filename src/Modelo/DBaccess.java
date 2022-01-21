@@ -70,7 +70,7 @@ public class DBaccess {
             preparedStatement.setInt(1, filtro);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Direccion dir = new Direccion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(7), rs.getInt(8), rs.getString(9));
+                Direccion dir = new Direccion(rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(5), rs.getString(8), rs.getInt(9), rs.getString(10));
                 res.add(dir);
                 System.out.println(dir.toString());
             }
@@ -92,7 +92,7 @@ public class DBaccess {
             preparedStatement.setString(1, "0");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                res.add(new Direccion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(7), rs.getInt(8), rs.getString(9)));
+                res.add(new Direccion(rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(5), rs.getString(8), rs.getInt(9), rs.getString(10)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -233,7 +233,8 @@ public class DBaccess {
             preparedStatement.setString(1, filtro);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                res.add(new Empresa(rs.getString(1), rs.getString(2), rs.getDate(3)));
+                Clientes cl = new Clientes(rs.getString(1));
+                res.add(new Empresa(rs.getString(1), rs.getString(2), rs.getDate(3), cl.getDireccion()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -290,7 +291,7 @@ public class DBaccess {
             //preparedStatement.setString(1, filtro);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                res.add(new Direccion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(7), rs.getInt(8), rs.getString(9)));
+                res.add(new Direccion(rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(5), rs.getString(8), rs.getInt(9), rs.getString(10)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

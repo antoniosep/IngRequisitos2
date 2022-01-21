@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.net.InterfaceAddress;
+
 public class Direccion {
     private int cpostal;
     private String calle;
@@ -22,7 +24,7 @@ public class Direccion {
         this.valida = direccion.isValida();
         this.plantaPuertaOficina = direccion.getPlantaPuertaOficina();
     }
-    public Direccion(int cpostal, String calle, int numero, String ciudad, String pais, String region, int valida, String plantaPuertaOficina) {
+    public Direccion(int cpostal, String calle, int numero, String ciudad, String pais, String region, Integer valida, String plantaPuertaOficina) {
         this.cpostal = cpostal;
         this.calle = calle;
         this.numero = numero;
