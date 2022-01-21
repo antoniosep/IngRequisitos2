@@ -3,9 +3,9 @@ package Modelo;
 import java.util.Date;
 
 public class Empresa {
-    private static String nombre;
-    private static String nif;
-    private static Date fechaCierre;
+    private String nombre;
+    private String nif;
+    private Date fechaCierre;
 
     public Empresa(String nombre, String nif, Date fechaCierre) {
         this.nombre=nombre;
@@ -21,27 +21,25 @@ public class Empresa {
         this.fechaCierre = empresa.getFechaCierre();
     }
 
-    public static void setNombre(String nombre) {
-        Empresa.nombre = nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public static void setNif(String nif) {
-        Empresa.nif = nif;
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
-    public static void setFechaCierre(Date fechaCierre) {
-        Empresa.fechaCierre = fechaCierre;
+    public void setFechaCierre(Date fechaCierre) {
+        this.fechaCierre = fechaCierre;
     }
 
-    public static String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
 
-    public static String getNif() {
+    public String getNif() {
         return nif;
     }
 
-    public static Date getFechaCierre() {
+    public Date getFechaCierre() {
         return fechaCierre;
     }
 }

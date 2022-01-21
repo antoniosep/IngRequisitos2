@@ -63,8 +63,6 @@ public class RPersona {
 
 
     public RPersona() {
-
-
         frame = new JFrame();
         frame.setBounds(100, 100, 692, 435);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
