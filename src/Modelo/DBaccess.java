@@ -152,7 +152,7 @@ public class DBaccess {
             preparedStatement.setString(1,"0");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                res.add(new Persona(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getString(6)));
+                res.add(new Persona(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getString(7),rs.getString(8),rs.getString(9),rs.getInt(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getInt(14),rs.getString(15),rs.getBoolean(16)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -213,7 +213,7 @@ public class DBaccess {
             //preparedStatement.setString(1, filtro);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                res.add(new Persona(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getString(6)));
+                //res.add(new Persona(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getString(6)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
