@@ -6,10 +6,9 @@ public class Direccion {
     private int numero;
     private String ciudad;
     private String pais;
-    private String plantaPuertaOficina;
     private String region;
     private boolean valida;
-
+    private String plantaPuertaOficina;
 
     public Direccion(int cpostal){
         DBaccess acceso = new DBaccess();
@@ -20,12 +19,17 @@ public class Direccion {
         this.ciudad = direccion.getCiudad();
         this.pais = direccion.getPais();
     }
-    public Direccion(int cpostal, String calle, int numero, String ciudad, String pais) {
+    public Direccion(int cpostal, String calle, int numero, String ciudad, String pais, String region, int valida, String plantaPuertaOficina) {
         this.cpostal = cpostal;
         this.calle = calle;
         this.numero = numero;
         this.ciudad = ciudad;
         this.pais = pais;
+        this.region = region;
+        if(valida==0) this.valida=false;
+        else this.valida = true;
+        this.plantaPuertaOficina = plantaPuertaOficina;
+
     }
 
     public String getPais() {
@@ -67,4 +71,16 @@ public class Direccion {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+
+    public String getPlantaPuertaOficina() { return plantaPuertaOficina; }
+
+    public String getRegion() { return region; }
+
+    public boolean isValida() { return valida; }
+
+    public void setPlantaPuertaOficina(String plantaPuertaOficina) { this.plantaPuertaOficina = plantaPuertaOficina; }
+
+    public void setRegion(String region) { this.region = region; }
+
+    public void setValida(boolean valida) { this.valida = valida; }
 }
