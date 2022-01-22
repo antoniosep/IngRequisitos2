@@ -8,9 +8,9 @@ public class Clientes {
     private String estado;
     private Date fechaInicio;
     private String psw;
-    private Direccion direccion;
+    private int direccion;
 
-    public Clientes(String id, String numeroidentificacion, String estado, Date fechaInicio, String psw,Direccion direccion){
+    public Clientes(String id, String numeroidentificacion, String estado, Date fechaInicio, String psw,int direccion){
         this.id = id;
         this.numeroidentificacion = numeroidentificacion;
         this.estado = estado;
@@ -19,11 +19,11 @@ public class Clientes {
         this.direccion = direccion;
     }
 
-    public Direccion getDireccion() {
+    public int getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(Direccion direccion) {
+    public void setDireccion(int direccion) {
         this.direccion = direccion;
     }
 

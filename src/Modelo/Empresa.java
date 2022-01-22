@@ -6,10 +6,10 @@ public class Empresa {
     private String nombre;
     private String nif;
     private Date fechaCierre;
-    private Direccion direccion;
+    private int direccion;
 
 
-    public Empresa(String nombre, String nif, Date fechaCierre, Direccion direccion) {
+    public Empresa(String nombre, String nif, Date fechaCierre, int direccion) {
         this.nombre=nombre;
         this.nif=nif;
         this.fechaCierre=fechaCierre;
@@ -46,4 +46,6 @@ public class Empresa {
     public Date getFechaCierre() {
         return fechaCierre;
     }
+
+    public int getDireccion(){return direccion;}
 }

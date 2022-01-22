@@ -19,9 +19,15 @@ public class Persona {
     private int CP;
     private String Pais;
     private boolean Valida;
+    private tipoP tipoPersona;
 
+    public enum tipoP
+    {
+        Socio,Representante;
+    }
 
-    public Persona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca, int num, String p, String r, String city, int cp, String pais, boolean v ){
+    public Persona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
+                   int num, String p, String r, String city, int cp, String pais, boolean v,tipoP tp){
         this.nif=n;
         this.primernombre=pn;
         this.segundoNombre=null;
@@ -38,7 +44,36 @@ public class Persona {
         this.CP=cp;
         this.Pais=pais;
         this.Valida=false;
+        this.tipoPersona = tp;
+    }
 
+    public Persona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
+                   int num, String p, String r, String city, int cp, String pais, boolean v){
+        this.nif=n;
+        this.primernombre=pn;
+        this.segundoNombre=null;
+        this.primerapellido=pa;
+        this.segundoApellido=null;
+        this.fechaNacimiento=f;
+        this.contrasena=c;
+        this.rcontrasena=rc;
+        this.calle=ca;
+        this.numero=num;
+        this.planta=p;
+        this.region=null;
+        this.ciudad=city;
+        this.CP=cp;
+        this.Pais=pais;
+        this.Valida=false;
+        this.tipoPersona = tipoP.Representante;
+    }
+
+    public tipoP getTipoPersona() {
+        return tipoPersona;
+    }
+
+    public void setTipoPersona(tipoP tp) {
+        this.tipoPersona = tp;
     }
 
     public String getPrimernombre() {

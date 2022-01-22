@@ -2,13 +2,12 @@ package GUI_APP;
 
 import Modelo.DBaccess;
 import Modelo.Persona;
+import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
-import java.time.format.DateTimeFormatterBuilder;
-import com.toedter.calendar.JDateChooser;
 
 public class RPersona {
 
@@ -187,8 +186,18 @@ public class RPersona {
         Registrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DBaccess bd= new DBaccess();
-               //Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
+                System.out.print(cif.getText());
+                //System.out.print(Date.valueOf(f.getText()));
+                //El formato de la fecha esta mal
+                //Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
+                Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), new Date(122,1,10),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
                 //añadir linea del metodo de DbAccess para registrar la persona
+                //new Date(year - 1900, month - 1, day);
+
+                //System.out.println(cif.getText()+" "+n.getText()+" "+sn.getText()+" "+pa.getText()+" "+sa.getText()+" "+new Date(2001,1,10),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
+                bd.crearCuentaPersona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), new Date(122,1,10),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
+
+
             }
         });
 

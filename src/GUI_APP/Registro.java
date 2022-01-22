@@ -1,7 +1,6 @@
 package GUI_APP;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +17,6 @@ public class Registro {
         frame.getContentPane().setLayout(null);
         frame.setResizable(false);
         frame.setVisible(true);
-
         initialize();
 }
 

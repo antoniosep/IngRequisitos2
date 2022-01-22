@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,6 +58,56 @@ public class DBaccess {
         return (cliente!=null)&&(cliente.getPsw().equals(psw)) ? cliente : null;
 
     }
+    //------
+    //Llamar a la función con los valores = null si no se han introducido
+    public void crearCuentaPersona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
+                                   int num, String p, String r, String city, int cp, String pais, boolean v, Persona.tipoP tp){
+        if(c.equals(rc)){
+            String InsertQueryBody = "INSERT INTO persona VALUES ('"+n+"','"+pn+"','"+sn+"','"+pa+"','"+sa+"','"+f+"','"+tp+"')";
+            String InsertQueryBody2 = "INSERT INTO cliente VALUES ('"+n+"',"+null+","+null+","+null+",'"+c+"',"+cp+")";
+            String InsertQueryBody3 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
+                    " VALUES ("+cp+",'"+ca+"',"+num+",'"+city+"','"+pais+"','"+n+"','"+r+"',"+v+",'"+p+"')";
+            try {
+                PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody);
+                PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody2);
+                PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
+
+                preparedStatement1.executeUpdate();
+                preparedStatement2.executeUpdate();
+                preparedStatement3.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    //Llamar a la función con los valores = null si no se han introducido
+    public void crearCuentaEmpresa(String cif,String nombre,String calle,int numero,String planta,String ciudad,
+                                   String pais,String region,int cp,Boolean valida,String psw,String psw2){
+        if(psw.equals(psw2)){
+            String InsertQueryBody = "INSERT INTO empresa VALUES ('"+cif+"','"+nombre+"',"+null+")";
+            String InsertQueryBody2 = "INSERT INTO cliente VALUES ('"+cif+"',"+null+","+null+","+null+",'"+psw+"',"+cp+")";
+
+            String InsertQueryBody3 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
+                    " VALUES ("+cp+",'"+calle+"',"+numero+",'"+ciudad+"','"+pais+"','"+cif+"','"+region+"',"+valida+",'"+planta+"')";
+            try {
+                PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody2);
+                PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody);
+                PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
+
+                preparedStatement1.executeUpdate();
+                preparedStatement2.executeUpdate();
+                preparedStatement3.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //---
 
     public List<Direccion> buscarDireccion(String nombreColumna, int filtro){
         /* Aqui tenemos señoras y señores un codigo bien de chido para que
@@ -112,19 +163,19 @@ public class DBaccess {
             preparedStatement.setString(1, filtro);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                res.add(new Clientes(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), new Direccion (rs.getInt(6))));
+                res.add(new Clientes(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getInt(6)));//new Direccion (rs.getInt(6))
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return res;
     }
-
+    /*
     public List<Clientes> buscarClientes(){
         /* Aqui tenemos señoras y señores un codigo bien de chido para que
          * podamos hacer SELECT a la bbdd pero seleccionando una columna y una
          * restriccion, si queremos aplicar más de una condicion ajo y agua amigos
-         * */
+
         List<Clientes> res = new LinkedList<Clientes>();
         String selectQueryBody = "SELECT * FROM cliente WHERE "+ 0 +"=?";
         try {
@@ -139,26 +190,8 @@ public class DBaccess {
         }
         return res;
     }
+    */
 
-    public List<Persona> buscarPersonas(){
-        /* Aqui tenemos señoras y señores un codigo bien de chido para que
-         * podamos hacer SELECT a la bbdd pero seleccionando una columna y una
-         * restriccion, si queremos aplicar más de una condicion ajo y agua amigos
-         * */
-        List<Persona> res = new LinkedList<Persona>();
-        String selectQueryBody = "SELECT * FROM persona WHERE "+ "0" +"=?";
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(selectQueryBody);
-            preparedStatement.setString(1,"0");
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                res.add(new Persona(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getString(7),rs.getString(8),rs.getString(9),rs.getInt(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getInt(14),rs.getString(15),rs.getBoolean(16)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
 
     public List<Transaccion> buscarTransacciones(){
         /* Aqui tenemos señoras y señores un codigo bien de chido para que
