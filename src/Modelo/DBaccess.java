@@ -1,5 +1,6 @@
 package Modelo;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.Date;
 import java.util.LinkedList;
@@ -62,22 +63,27 @@ public class DBaccess {
     //Llamar a la función con los valores = null si no se han introducido
     public void crearCuentaPersona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
                                    int num, String p, String r, String city, int cp, String pais, boolean v, Persona.tipoP tp){
-        if(c.equals(rc)){
-            String InsertQueryBody = "INSERT INTO persona VALUES ('"+n+"','"+pn+"','"+sn+"','"+pa+"','"+sa+"','"+f+"','"+tp+"')";
-            String InsertQueryBody2 = "INSERT INTO cliente VALUES ('"+n+"',"+null+","+null+","+null+",'"+c+"',"+cp+")";
-            String InsertQueryBody3 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
-                    " VALUES ("+cp+",'"+ca+"',"+num+",'"+city+"','"+pais+"','"+n+"','"+r+"',"+v+",'"+p+"')";
-            try {
-                PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody);
-                PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody2);
-                PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
 
-                preparedStatement1.executeUpdate();
-                preparedStatement2.executeUpdate();
-                preparedStatement3.executeUpdate();
+        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0 || f.compareTo(null)==0 || tp.compareTo(null)==0) {
+            JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
+        }else{
+            if (c.equals(rc)) {
+                String InsertQueryBody = "INSERT INTO persona VALUES ('" + n + "','" + pn + "','" + sn + "','" + pa + "','" + sa + "','" + f + "','" + tp + "')";
+                String InsertQueryBody2 = "INSERT INTO cliente VALUES ('" + n + "'," + null + "," + null + "," + null + ",'" + c + "'," + cp + ")";
+                String InsertQueryBody3 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
+                        " VALUES (" + cp + ",'" + ca + "'," + num + ",'" + city + "','" + pais + "','" + n + "','" + r + "'," + v + ",'" + p + "')";
+                try {
+                    PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody);
+                    PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody2);
+                    PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+                    preparedStatement1.executeUpdate();
+                    preparedStatement2.executeUpdate();
+                    preparedStatement3.executeUpdate();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
