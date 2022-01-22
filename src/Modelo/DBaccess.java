@@ -1,6 +1,7 @@
 package Modelo;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.*;
 import java.util.Date;
 import java.util.LinkedList;
@@ -64,9 +65,13 @@ public class DBaccess {
     public void crearCuentaPersona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
                                    int num, String p, String r, String city, int cp, String pais, boolean v, Persona.tipoP tp){
 
-        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0 || f.compareTo(null)==0 || tp.compareTo(null)==0) {
+        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0 || f.compareTo(null)==0 || tp.compareTo(null)==0 || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
             JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
-        }else{
+        }
+        else if(c.compareTo(rc)!=0){
+            JOptionPane.showMessageDialog(new Frame(), "La contraseña es distinta");
+        }
+        else{
             if (c.equals(rc)) {
                 String InsertQueryBody = "INSERT INTO persona VALUES ('" + n + "','" + pn + "','" + sn + "','" + pa + "','" + sa + "','" + f + "','" + tp + "')";
                 String InsertQueryBody2 = "INSERT INTO cliente VALUES ('" + n + "'," + null + "," + null + "," + null + ",'" + c + "'," + cp + ")";
@@ -81,8 +86,12 @@ public class DBaccess {
                     preparedStatement2.executeUpdate();
                     preparedStatement3.executeUpdate();
 
+                    JOptionPane.showMessageDialog(new JFrame(), "La cuenta ha sido creada con exito");
+
+
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
                 }
             }
         }
@@ -92,23 +101,31 @@ public class DBaccess {
     //Llamar a la función con los valores = null si no se han introducido
     public void crearCuentaEmpresa(String cif,String nombre,String calle,int numero,String planta,String ciudad,
                                    String pais,String region,int cp,Boolean valida,String psw,String psw2){
-        if(psw.equals(psw2)){
-            String InsertQueryBody = "INSERT INTO empresa VALUES ('"+cif+"','"+nombre+"',"+null+")";
-            String InsertQueryBody2 = "INSERT INTO cliente VALUES ('"+cif+"',"+null+","+null+","+null+",'"+psw+"',"+cp+")";
+        if(cif.compareTo("")==0 || nombre.compareTo("")==0 || psw.compareTo("")==0 || psw2.compareTo("")==0 || calle.compareTo("")==0 || numero == 0 || planta.compareTo("")==0 || ciudad.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
+            JOptionPane.showMessageDialog(new Frame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
+        }else{
+            if (psw.equals(psw2)) {
+                String InsertQueryBody = "INSERT INTO empresa VALUES ('" + cif + "','" + nombre + "'," + null + ")";
+                String InsertQueryBody2 = "INSERT INTO cliente VALUES ('" + cif + "'," + null + "," + null + "," + null + ",'" + psw + "'," + cp + ")";
 
-            String InsertQueryBody3 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
-                    " VALUES ("+cp+",'"+calle+"',"+numero+",'"+ciudad+"','"+pais+"','"+cif+"','"+region+"',"+valida+",'"+planta+"')";
-            try {
-                PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody2);
-                PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody);
-                PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
+                String InsertQueryBody3 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
+                        " VALUES (" + cp + ",'" + calle + "'," + numero + ",'" + ciudad + "','" + pais + "','" + cif + "','" + region + "'," + valida + ",'" + planta + "')";
+                try {
+                    PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody2);
+                    PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody);
+                    PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
 
-                preparedStatement1.executeUpdate();
-                preparedStatement2.executeUpdate();
-                preparedStatement3.executeUpdate();
+                    preparedStatement1.executeUpdate();
+                    preparedStatement2.executeUpdate();
+                    preparedStatement3.executeUpdate();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+                    JOptionPane.showMessageDialog(new JFrame(), "La cuenta ha sido creada con exito");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(new Frame(), "La contraseña es distinta");
             }
         }
     }
