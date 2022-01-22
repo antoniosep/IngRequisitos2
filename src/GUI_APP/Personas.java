@@ -1,13 +1,13 @@
 package GUI_APP;
 
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.toedter.calendar.JDateChooser;
 
 public class Personas {
-
 
     private JFrame frame;
     private JTextField cif;

@@ -186,8 +186,8 @@ public class RPersona {
         Registrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DBaccess bd= new DBaccess();
-                System.out.print(cif.getText());
-                //System.out.print(Date.valueOf(f.getText()));
+                System.out.print(f.getText()+ "asdasd");
+
                 //El formato de la fecha esta mal
                 //Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
                 Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), new Date(122,1,10),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
@@ -250,9 +250,9 @@ public class RPersona {
         pa = new JTextField();
         pa.setColumns(10);
 
-        JLabel SegundoN = new JLabel("Segundo Nombre(*)");
+        JLabel SegundoN = new JLabel("Segundo Nombre");
 
-        JLabel SegundoA = new JLabel("Segundo Apellido(*)");
+        JLabel SegundoA = new JLabel("Segundo Apellido");
 
         sn = new JTextField();
         sn.setColumns(10);
