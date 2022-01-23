@@ -263,6 +263,7 @@ public class REmpresa {
             public void actionPerformed(ActionEvent e) {
                 DBaccess bd = new DBaccess();
                 //Empresa e = new Empresa()
+
                 Empresa empresa= new Empresa(cif.getText(),n.getText(),new Date(122,1,10),Integer.parseInt(cp.getText()));
                 //añadir linea del metodo de DbAccess para registrar la persona
                 //new Date(year - 1900, month - 1, day);

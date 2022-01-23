@@ -266,8 +266,11 @@ public class RPersona {
 
 
         GroupLayout gl_panel = new GroupLayout(panel);
+
         JDateChooser dateChooser = new JDateChooser();
         dateChooser.setDateFormatString("MM-dd-yyyy");//yyyy-dd-MM
+        
+
         gl_panel.setHorizontalGroup(
                 gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(gl_panel.createSequentialGroup()
