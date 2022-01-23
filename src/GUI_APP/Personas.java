@@ -1,11 +1,14 @@
 package GUI_APP;
 
+import Modelo.DBaccess;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Personas {
 
@@ -26,7 +29,7 @@ public class Personas {
     private JTextField sa;
     private JTextField f;
     private JTable table;
-
+    private JDateChooser dateChooser;
 
 
 
@@ -94,6 +97,15 @@ public class Personas {
         JButton Anadir = new JButton("A\u00F1adir");
         Anadir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                DBaccess bd= new DBaccess();
+                dateChooser.setDateFormatString("dd-MM-yyyy");//yyyy-dd-MM
+
+                // System.out.println(dateChooser.getDate().toString());
+                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                Date fecha= new Date(21,21,1);
+                fecha.setTime(dateChooser.getDate().getTime());
+
             }
         });
 
@@ -145,9 +157,9 @@ public class Personas {
         pa = new JTextField();
         pa.setColumns(10);
 
-        JLabel SegundoN = new JLabel("Segundo Nombre(*)");
+        JLabel SegundoN = new JLabel("Segundo Nombre");
 
-        JLabel SegundoA = new JLabel("Segundo Apellido(*)");
+        JLabel SegundoA = new JLabel("Segundo Apellido");
 
         sn = new JTextField();
         sn.setColumns(10);
@@ -184,8 +196,8 @@ public class Personas {
         });
 
         JScrollPane scrollPane = new JScrollPane();
-        JDateChooser dateChooser = new JDateChooser();
-        dateChooser.setDateFormatString("MM-dd-yyyy");//yyyy-dd-MM
+        dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("dd-MM-yyyy");//yyyy-dd-MM
         GroupLayout gl_panel = new GroupLayout(panel);
         gl_panel.setHorizontalGroup(
                 gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)

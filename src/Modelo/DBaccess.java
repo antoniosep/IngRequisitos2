@@ -64,8 +64,8 @@ public class DBaccess {
     //Llamar a la función con los valores = null si no se han introducido
     public void crearCuentaPersona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
                                    int num, String p, String r, String city, int cp, String pais, boolean v, Persona.tipoP tp){
-
-        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0 || f.compareTo(null)==0 || tp.compareTo(null)==0 || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
+//f.compareTo(null)==0 || tp.compareTo(null)==0
+        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0  || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
             JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
         }
         else if(c.compareTo(rc)!=0){
