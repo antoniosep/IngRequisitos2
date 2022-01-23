@@ -30,6 +30,8 @@ public class Personas {
     private JTextField f;
     private JTable table;
     private JDateChooser dateChooser;
+    private JComboBox comboBox;
+
 
 
 
@@ -106,6 +108,13 @@ public class Personas {
                 Date fecha= new Date(21,21,1);
                 fecha.setTime(dateChooser.getDate().getTime());
 
+                Object[] values = {
+                        n.getText(), cif.getText(), comboBox.getSelectedItem(), Boolean.FALSE
+                };
+                System.out.println(values);
+
+                MyTable myTable = (MyTable) table.getModel();
+                myTable.addRow(values);
             }
         });
 
@@ -175,7 +184,7 @@ public class Personas {
         JLabel Tipo = new JLabel("Tipo(*)");
         Tipo.setHorizontalAlignment(SwingConstants.TRAILING);
 
-        JComboBox comboBox = new JComboBox();
+        comboBox = new JComboBox();
         comboBox.setModel(new DefaultComboBoxModel(new String[] {"Socio", "Representante"}));
 
         JButton Borrar = new JButton("Borrar");
@@ -390,7 +399,8 @@ public class Personas {
         );
 
 
-        table = new JTable();
+        table = new JTable(new MyTable());
+        /*
         table.setModel(new DefaultTableModel(
                 new Object[][] {
                         {null, null, null, null},
@@ -402,6 +412,7 @@ public class Personas {
                         "Nombre", "NIF", "Tipo", ""
                 }
         ));
+        */
 
         scrollPane.setColumnHeaderView(table);
 
