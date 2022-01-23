@@ -4,15 +4,10 @@ import javax.swing.table.AbstractTableModel;
 import java.util.Date;
 
 public class MyTable extends AbstractTableModel {
-    private String[] header = {
+    private String[] columnNames = {
             "Nombre", "NIF", "Tipo", ""
     };
-    private Object[][] data = {
-            {"null", "null", "null", Boolean.FALSE},
-            {"null", "null", "null", Boolean.TRUE},
-            {"null", "null", "null", Boolean.FALSE},
-            {"null", "null", "null", Boolean.TRUE},
-    };
+    private Object[][] data = {};
 
 
     @Override
@@ -22,7 +17,11 @@ public class MyTable extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return header.length;
+        return columnNames.length;
+    }
+
+    public String getColumnName(int col){
+        return columnNames[col];
     }
 
     @Override
@@ -40,7 +39,7 @@ public class MyTable extends AbstractTableModel {
     }
 
     public void addRow(Object[] values){
-        Object[][] newData = new Object[data.length+1][header.length];
+        Object[][] newData = new Object[data.length+1][columnNames.length];
         int i = 0;
         for(Object[] row : data){
             newData[i] = row;
@@ -53,4 +52,15 @@ public class MyTable extends AbstractTableModel {
         fireTableRowsInserted(0, getRowCount());
     }
 
+    public void remove() {
+        if(getRowCount()>0){
+            Object[][] newData = new Object[data.length-1][columnNames.length];
+            for(int i = 0; i< newData.length; i++){
+                newData[i] = data[i];
+            }
+
+            data = newData;
+            fireTableRowsDeleted(0, data.length);
+        }
+    }
 }

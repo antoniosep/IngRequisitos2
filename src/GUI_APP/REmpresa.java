@@ -261,15 +261,18 @@ public class REmpresa {
         JButton Registrar = new JButton("Registrar");
         Registrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DBaccess bd = new DBaccess();
-                //Empresa e = new Empresa()
-                Empresa empresa= new Empresa(cif.getText(),n.getText(),new Date(122,1,10),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()));
-                //añadir linea del metodo de DbAccess para registrar la persona
-                //new Date(year - 1900, month - 1, day);
-                bd.crearCuentaEmpresa(cif.getText(),n.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),city.getText(),pais.getText(),r.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),Valida.isSelected(),contra.getText(),rcontra.getText());
-                //String cif,String nombre,String calle,String numero,String planta,String ciudad, String pais,String region,String cp,Boolean valida,String psw,String psw2
-                //
-
+                try{
+                    DBaccess bd = new DBaccess();
+                    //Empresa e = new Empresa()
+                    Empresa empresa= new Empresa(cif.getText(),n.getText(),new Date(122,1,10),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()));
+                    //añadir linea del metodo de DbAccess para registrar la persona
+                    //new Date(year - 1900, month - 1, day);
+                    bd.crearCuentaEmpresa(cif.getText(),n.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),city.getText(),pais.getText(),r.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),Valida.isSelected(),contra.getText(),rcontra.getText());
+                    //String cif,String nombre,String calle,String numero,String planta,String ciudad, String pais,String region,String cp,Boolean valida,String psw,String psw2
+                    //
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
 
