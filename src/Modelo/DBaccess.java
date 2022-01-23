@@ -131,6 +131,46 @@ public class DBaccess {
         }
     }
 
+    public void crearCuentaPersonaRelacionada(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
+                                              int num, String p, String r, String city, int cp, String pais, boolean v, String tp,String idEmpresa){
+
+        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0  || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
+            JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
+        }
+        else if(c.compareTo(rc)!=0){ //|| f.compareTo(null)==0  || tp.compareTo(null)==0
+            JOptionPane.showMessageDialog(new Frame(), "La contraseÃ±a es distinta");
+        }
+        else{
+            if (c.equals(rc)) {
+                String InsertQueryBody = "INSERT INTO persona VALUES ('" + n + "','" + pn + "','" + sn + "','" + pa + "','" + sa + "','" + f + "','" + tp + "')";
+                String InsertQueryBody2 = "INSERT INTO cliente VALUES ('" + n + "'," + null + "," + null + "," + null + ",'" + c + "'," + cp + ")";
+                String InsertQueryBody3 = "INSERT INTO PersonaRelacionada VALUES ('" + n + "'," + null + ", '" + tp + "','" + idEmpresa + "'," + null +")";
+                String InsertQueryBody4 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
+                        " VALUES (" + cp + ",'" + ca + "'," + num + ",'" + city + "','" + pais + "','" + n + "','" + r + "'," + v + ",'" + p + "')";
+                try {
+                    PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody);
+                    PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody2);
+                    PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
+                    PreparedStatement preparedStatement4 = conn.prepareStatement(InsertQueryBody4);
+
+                    preparedStatement1.executeUpdate();
+                    preparedStatement2.executeUpdate();
+                    preparedStatement3.executeUpdate();
+                    preparedStatement4.executeUpdate();
+
+                    JOptionPane.showMessageDialog(new JFrame(), "La cuenta ha sido creada con exito");
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
+                }
+            }
+        }
+
+    }
+
+
     //---
 
     public List<Direccion> buscarDireccion(String nombreColumna, int filtro){

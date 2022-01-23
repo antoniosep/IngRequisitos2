@@ -1,6 +1,7 @@
 package GUI_APP;
 
 import Modelo.DBaccess;
+import Modelo.Persona;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class Personas {
     private JTable table;
     private JDateChooser dateChooser;
     private JComboBox comboBox;
+    private String idEmpresa;
 
 
 
@@ -40,8 +42,22 @@ public class Personas {
         frame = new JFrame();
         frame.setBounds(100, 100, 784, 707);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.idEmpresa = null;
+
         initialize();
     }
+
+    public Personas(String idEmpresa) {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 784, 707);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.idEmpresa = idEmpresa;
+
+        initialize();
+    }
+
     private void initialize() {
         setPanel();
     }
@@ -107,6 +123,9 @@ public class Personas {
                 SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
                 Date fecha= new Date(21,21,1);
                 fecha.setTime(dateChooser.getDate().getTime());
+
+                String tipo = (String) comboBox.getSelectedItem();
+                bd.crearCuentaPersonaRelacionada(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), tipo, "C12312312");
 
                 Object[] values = {
                         n.getText(), cif.getText(), comboBox.getSelectedItem(), Boolean.FALSE
