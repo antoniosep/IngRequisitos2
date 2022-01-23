@@ -122,7 +122,6 @@ public class Personas {
         Cancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-
             }
         });
 
