@@ -124,6 +124,7 @@ public class Personas {
                 Date fecha= new Date(21,21,1);
                 fecha.setTime(dateChooser.getDate().getTime());
 
+
                 String tipo = (String) comboBox.getSelectedItem();
                 bd.crearCuentaPersonaRelacionada(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), tipo, "C12312312");
 
