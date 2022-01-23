@@ -123,6 +123,7 @@ public class DBaccess {
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
                 }
             } else {
                 JOptionPane.showMessageDialog(new Frame(), "La contraseña es distinta");
