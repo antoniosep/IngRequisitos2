@@ -1,6 +1,7 @@
 package GUI_APP;
 
 import Modelo.DBaccess;
+import Modelo.Persona;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -132,10 +133,9 @@ public class Personas {
                     Object[] values = {
                             n.getText(), cif.getText(), comboBox.getSelectedItem(), Valida.isSelected()
                     };
-                    System.out.println(values);
 
                     MyTable myTable = (MyTable) table.getModel();
-                    myTable.addRow(values);
+                    myTable.addRow(values, new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected()));
                 }catch (Exception ex){
                     ex.printStackTrace();
                     if(ex.getMessage()=="ERR1" || ex.getClass() == NullPointerException.class){
@@ -221,13 +221,9 @@ public class Personas {
         Borrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MyTable myTable = (MyTable) table.getModel();
-                myTable.remove();
-
-                DBaccess bd= new DBaccess();
+                myTable.remove(table.getSelectedRow());
 
                 // System.out.println(dateChooser.getDate().toString());
-
-                bd.borrarCuentaPersonaRelacionada(cif.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()), DBaccess.idEmpresa); //"D12312322"
 
             }
         });
@@ -436,7 +432,7 @@ public class Personas {
         );
 
 
-        table = new JTable(new MyTable());
+        table = new JTable(new MyTable(idEmpresa));
         scrollPane.setColumnHeaderView(table);
 
 

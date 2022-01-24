@@ -1,14 +1,24 @@
 package GUI_APP;
 
+import Modelo.DBaccess;
+import Modelo.Persona;
+
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MyTable extends AbstractTableModel {
     private String[] columnNames = {
             "Nombre", "NIF", "Tipo", ""
     };
     private Object[][] data = {};
+    private List<Persona> coleccion = new ArrayList<>();
+    private String idEmpresa;
 
+    public MyTable(String idEmpresa){
+        this.idEmpresa = idEmpresa;
+    }
 
     @Override
     public int getRowCount() {
@@ -38,26 +48,39 @@ public class MyTable extends AbstractTableModel {
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
-    public void addRow(Object[] values){
+    public void addRow(Object[] values, Persona persona){
         Object[][] newData = new Object[data.length+1][columnNames.length];
         int i = 0;
+
         for(Object[] row : data){
             newData[i] = row;
             i++;
         }
 
         newData[i] = values;
-
         data = newData;
+
+        coleccion.add(persona);
+
         fireTableRowsInserted(0, getRowCount());
     }
 
-    public void remove() {
+    public void remove(int j) {
         if(getRowCount()>0){
             Object[][] newData = new Object[data.length-1][columnNames.length];
-            for(int i = 0; i< newData.length; i++){
-                newData[i] = data[i];
+            int i = 0;
+            int m = 0;
+            while(i<data.length && m<newData.length){
+                if(i!=j){
+                    newData[m] = data[i];
+                    m++;
+                }
+                i++;
             }
+            DBaccess db = new DBaccess();
+
+            Persona persona = coleccion.get(j);
+            db.borrarCuentaPersonaRelacionada(persona.getNif(), persona.getCP(), idEmpresa);
 
             data = newData;
             fireTableRowsDeleted(0, data.length);
