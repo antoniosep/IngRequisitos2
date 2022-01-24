@@ -207,6 +207,8 @@ public class RPersona {
                     bd.crearCuentaPersona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
                     //System.out.println(cif.getText()+" "+n.getText()+" "+sn.getText()+" "+pa.getText()+" "+sa.getText()+" "+new Date(2001,1,10),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
 
+                    Registro registro = new Registro();
+                    alternateVisible();
                 }catch (Exception ex){
                     ex.printStackTrace();
                     if(ex.getMessage()=="ERR1" || ex.getClass() == NullPointerException.class){

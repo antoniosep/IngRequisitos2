@@ -1,7 +1,6 @@
 package Modelo;
 
 import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
 import java.util.Date;
 import java.util.LinkedList;
@@ -204,6 +203,7 @@ public class DBaccess {
                 String DeleteQueryBody3 = "DELETE FROM PersonaRelacionada WHERE idCliente = '"+n+"'";
                 String DeleteQueryBody4 =  "DELETE FROM direccion WHERE id = '"+cp+"'";
                 try {//
+                    System.out.println(DeleteQueryBody);
                     PreparedStatement preparedStatement1 = conn.prepareStatement(DeleteQueryBody);
                     PreparedStatement preparedStatement2 = conn.prepareStatement(DeleteQueryBody2);
                     PreparedStatement preparedStatement3 = conn.prepareStatement(DeleteQueryBody3);

@@ -5,7 +5,6 @@ import Modelo.Persona;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MyTable extends AbstractTableModel {
@@ -80,6 +79,7 @@ public class MyTable extends AbstractTableModel {
             DBaccess db = new DBaccess();
 
             Persona persona = coleccion.get(j);
+
             db.borrarCuentaPersonaRelacionada(persona.getNif(), persona.getCP(), idEmpresa);
 
             data = newData;
