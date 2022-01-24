@@ -60,6 +60,7 @@ public class Personas {
 
     private void initialize() {
         setPanel();
+        this.frame.setVisible(true);
     }
 
     public void setPanel() {
@@ -446,7 +447,7 @@ public class Personas {
     public static void main(String[] args) {
 
         Personas p = new Personas();
-        p.frame.setVisible(true);
+
 
     }
 
