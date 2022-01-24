@@ -4,6 +4,7 @@ import Modelo.DBaccess;
 import Modelo.Empresa;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -275,6 +276,13 @@ public class REmpresa {
 
                 }catch (Exception ex){
                     ex.printStackTrace();
+                    if(ex.getMessage()=="ERR1" || ex.getClass() == NullPointerException.class){
+                        JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
+                    }else if(ex.getMessage()=="ERR2"){
+                        JOptionPane.showMessageDialog(new Frame(), "La contrase\u00f1a es distinta");
+                    }else{
+                        JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
+                    }
                 }
             }
         });
