@@ -1,11 +1,16 @@
 package GUI_APP;
 
+import Modelo.DBaccess;
+import Modelo.Persona;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Personas {
 
@@ -26,6 +31,10 @@ public class Personas {
     private JTextField sa;
     private JTextField f;
     private JTable table;
+    private JDateChooser dateChooser;
+    private JComboBox comboBox;
+    private JCheckBox Valida;
+    private String idEmpresa;
 
 
 
@@ -35,8 +44,22 @@ public class Personas {
         frame = new JFrame();
         frame.setBounds(100, 100, 784, 707);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.idEmpresa = null;
+
         initialize();
     }
+
+    public Personas(String idEmpresa) {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 784, 707);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.idEmpresa = idEmpresa;
+
+        initialize();
+    }
+
     private void initialize() {
         setPanel();
     }
@@ -85,7 +108,7 @@ public class Personas {
 
         JLabel CP = new JLabel("C.P.(*)");
 
-        JCheckBox Valida = new JCheckBox("V\u00E1lida(direcci\u00F3n actual)");
+        Valida = new JCheckBox("V\u00E1lida(direcci\u00F3n actual)");
 
         JLabel Contra = new JLabel("Contrase\u00F1a(*)");
 
@@ -94,14 +117,43 @@ public class Personas {
         JButton Anadir = new JButton("A\u00F1adir");
         Anadir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try{
+                    DBaccess bd= new DBaccess();
+                    dateChooser.setDateFormatString("dd-MM-yyyy");//yyyy-dd-MM
+
+                    // System.out.println(dateChooser.getDate().toString());
+                    SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                    Date fecha= new Date(21,21,1);
+                    fecha.setTime(dateChooser.getDate().getTime());
+
+
+                    String tipo = (String) comboBox.getSelectedItem();
+                    bd.crearCuentaPersonaRelacionada(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), tipo, "C12312312");
+
+                    Object[] values = {
+                            n.getText(), cif.getText(), comboBox.getSelectedItem(), Valida.isSelected()
+                    };
+                    System.out.println(values);
+
+                    MyTable myTable = (MyTable) table.getModel();
+                    myTable.addRow(values);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                    if(ex.getMessage()=="ERR1" || ex.getClass() == NullPointerException.class){
+                        JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
+                    }else if(ex.getMessage()=="ERR2"){
+                        JOptionPane.showMessageDialog(new Frame(), "La contrase\u00f1a es distinta");
+                    }else{
+                        JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
+                    }
+                }
             }
         });
 
         JButton Cancelar = new JButton("Cancelar");
         Cancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-
+                limpiarCampos();
             }
         });
 
@@ -145,9 +197,9 @@ public class Personas {
         pa = new JTextField();
         pa.setColumns(10);
 
-        JLabel SegundoN = new JLabel("Segundo Nombre(*)");
+        JLabel SegundoN = new JLabel("Segundo Nombre");
 
-        JLabel SegundoA = new JLabel("Segundo Apellido(*)");
+        JLabel SegundoA = new JLabel("Segundo Apellido");
 
         sn = new JTextField();
         sn.setColumns(10);
@@ -163,14 +215,16 @@ public class Personas {
         JLabel Tipo = new JLabel("Tipo(*)");
         Tipo.setHorizontalAlignment(SwingConstants.TRAILING);
 
-        JComboBox comboBox = new JComboBox();
+        comboBox = new JComboBox();
         comboBox.setModel(new DefaultComboBoxModel(new String[] {"Socio", "Representante"}));
 
         JButton Borrar = new JButton("Borrar");
         Borrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                MyTable myTable = (MyTable) table.getModel();
+                myTable.remove();
 
-
+                //borrar personaRelacionada de la base de datos
             }
         });
 
@@ -184,8 +238,8 @@ public class Personas {
         });
 
         JScrollPane scrollPane = new JScrollPane();
-        JDateChooser dateChooser = new JDateChooser();
-        dateChooser.setDateFormatString("MM-dd-yyyy");//yyyy-dd-MM
+        dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("dd-MM-yyyy");//yyyy-dd-MM
         GroupLayout gl_panel = new GroupLayout(panel);
         gl_panel.setHorizontalGroup(
                 gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -378,19 +432,7 @@ public class Personas {
         );
 
 
-        table = new JTable();
-        table.setModel(new DefaultTableModel(
-                new Object[][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                },
-                new String[] {
-                        "Nombre", "NIF", "Tipo", ""
-                }
-        ));
-
+        table = new JTable(new MyTable());
         scrollPane.setColumnHeaderView(table);
 
 
@@ -408,6 +450,27 @@ public class Personas {
     public void alternateVisible(){
         if(frame.isVisible()) frame.setVisible(false);
         else frame.setVisible(true);
+    }
+
+    public void limpiarCampos(){
+        cif.setText("");
+        n.setText("");
+        c.setText("");
+        p.setText("");
+        city.setText("");
+        pais.setText("");
+        num.setText("");
+        r.setText("");
+        cp.setText("");
+        contra.setText("");
+        rcontra.setText("");
+        pa.setText("");
+        sn.setText("");
+        sa.setText("");
+        f.setText("");
+        dateChooser.setDate(null);
+        comboBox.setSelectedIndex(0);
+        Valida.setSelected(Boolean.FALSE);
     }
 
 }
