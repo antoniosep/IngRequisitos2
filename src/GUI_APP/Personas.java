@@ -1,11 +1,9 @@
 package GUI_APP;
 
 import Modelo.DBaccess;
-import Modelo.Persona;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -128,7 +126,7 @@ public class Personas {
 
 
                     String tipo = (String) comboBox.getSelectedItem();
-                    bd.crearCuentaPersonaRelacionada(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), tipo, "C12312312");
+                    bd.crearCuentaPersonaRelacionada(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), tipo, DBaccess.idEmpresa); //"D12312322"
 
                     Object[] values = {
                             n.getText(), cif.getText(), comboBox.getSelectedItem(), Valida.isSelected()
@@ -224,7 +222,12 @@ public class Personas {
                 MyTable myTable = (MyTable) table.getModel();
                 myTable.remove();
 
-                //borrar personaRelacionada de la base de datos
+                DBaccess bd= new DBaccess();
+
+                // System.out.println(dateChooser.getDate().toString());
+
+                bd.borrarCuentaPersonaRelacionada(cif.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()), DBaccess.idEmpresa); //"D12312322"
+
             }
         });
 

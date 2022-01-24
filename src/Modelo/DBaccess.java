@@ -14,6 +14,7 @@ public class DBaccess {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String USER = "grupo07";
     static final String PASS = "FjLWM6DNk6TJDzfV";
+    public static String idEmpresa ="D12312322";
 
     public static Connection conn;
     private static DBaccess acceso = null;
@@ -65,7 +66,7 @@ public class DBaccess {
     public void crearCuentaPersona(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
                                    int num, String p, String r, String city, int cp, String pais, boolean v, Persona.tipoP tp) throws Exception {
 //f.compareTo(null)==0 || tp.compareTo(null)==0
-        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0  || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
+        if(n.compareTo("")==0 || pn.compareTo("")==0||pa.compareTo("")==0  || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
             JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
             throw new Exception("No se ha podido crear");
         }
@@ -121,6 +122,8 @@ public class DBaccess {
                     preparedStatement2.executeUpdate();
                     preparedStatement3.executeUpdate();
 
+                    idEmpresa = cif;
+
                     JOptionPane.showMessageDialog(new JFrame(), "La cuenta ha sido creada con exito");
 
                 } catch (SQLException e) {
@@ -136,11 +139,11 @@ public class DBaccess {
     public void crearCuentaPersonaRelacionada(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
                                               int num, String p, String r, String city, int cp, String pais, boolean v, String tp,String idEmpresa) throws Exception {
 
-        if(n.compareTo("")==0 || pn.compareTo("")==0 || pa.compareTo("")==0  || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
-            throw new Exception("ERR1");
+        if(n.compareTo("")==0 || pn.compareTo("")==0  || pa.compareTo("")==0  || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
+            JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
         }
         else if(c.compareTo(rc)!=0){ //|| f.compareTo(null)==0  ||  tp.compareTo(null)==0
-            throw new Exception("ERR2");
+            JOptionPane.showMessageDialog(new Frame(), "La contraseña es distinta");
         }
         else{
             if (c.equals(rc)) {
@@ -149,7 +152,7 @@ public class DBaccess {
                 String InsertQueryBody3 = "INSERT INTO PersonaRelacionada VALUES ('" + n + "'," + null + ", '" + tp + "','" + idEmpresa + "'," + null +")";
                 String InsertQueryBody4 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
                         " VALUES (" + cp + ",'" + ca + "'," + num + ",'" + city + "','" + pais + "','" + n + "','" + r + "'," + v + ",'" + p + "')";
-
+            try{
                 PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody);
                 PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody2);
                 PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
@@ -161,11 +164,85 @@ public class DBaccess {
                 preparedStatement4.executeUpdate();
 
                 JOptionPane.showMessageDialog(new JFrame(), "La cuenta ha sido creada con exito");
-
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
+            }
             }
         }
 
     }
+
+    /*
+    public void crearCuentaPersonaRelacionada(String n, String pn, String sn, String pa, String sa, Date f, String c, String rc, String ca,
+                                              int num, String p, String r, String city, int cp, String pais, boolean v, Persona.tipoP tp,String idEmpresa){
+
+        if(n.compareTo("")==0 || pn.compareTo("")==0 || f.compareTo(null)==0 || pa.compareTo("")==0  || c.compareTo("")==0 || rc.compareTo("")==0 || ca.compareTo("")==0 || num == 0 || p.compareTo("")==0 || city.compareTo("")==0 || pais.compareTo("")==0 || cp==0) {
+            JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta porque hay datos obligatorios que no han sido rellenados o datos con formato incorrecto.");
+        }
+        else if(c.compareTo(rc)!=0){ //|| f.compareTo(null)==0  || tp.compareTo(null)==0
+            JOptionPane.showMessageDialog(new Frame(), "La contraseña es distinta");
+        }
+        else{
+            if (c.equals(rc)) {
+                String InsertQueryBody = "INSERT INTO persona VALUES ('" + n + "','" + pn + "','" + sn + "','" + pa + "','" + sa + "','" + f + "','" + tp + "')";
+                String InsertQueryBody2 = "INSERT INTO cliente VALUES ('" + n + "'," + null + "," + null + "," + null + ",'" + c + "'," + cp + ")";
+                String InsertQueryBody3 = "INSERT INTO PersonaRelacionada VALUES ('" + idEmpresa + "'," + null + "," + tp + "," + n + ",'" + null +")";
+                String InsertQueryBody4 = "INSERT INTO direccion (`cpostal`,`calle`,`numero`,`ciudad`,`pais`,`idCliente`,`region`,`valida`,`planta/puerta/oficina`)" +
+                        " VALUES (" + cp + ",'" + ca + "'," + num + ",'" + city + "','" + pais + "','" + n + "','" + r + "'," + v + ",'" + p + "')";
+                try {
+                    PreparedStatement preparedStatement1 = conn.prepareStatement(InsertQueryBody);
+                    PreparedStatement preparedStatement2 = conn.prepareStatement(InsertQueryBody2);
+                    PreparedStatement preparedStatement3 = conn.prepareStatement(InsertQueryBody3);
+                    PreparedStatement preparedStatement4 = conn.prepareStatement(InsertQueryBody4);
+
+                    preparedStatement1.executeUpdate();
+                    preparedStatement2.executeUpdate();
+                    preparedStatement3.executeUpdate();
+                    preparedStatement4.executeUpdate();
+
+                    JOptionPane.showMessageDialog(new JFrame(), "La cuenta ha sido creada con exito");
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
+                }
+            }
+        }
+
+    }
+
+     */
+
+    public void borrarCuentaPersonaRelacionada(String n, int cp,String idEmpresa){
+
+
+                String DeleteQueryBody = "DELETE FROM persona WHERE idCliente = '"+n+"'";
+                String DeleteQueryBody2 = "DELETE FROM cliente WHERE id = '"+n+"'";
+                String DeleteQueryBody3 = "DELETE FROM PersonaRelacionada WHERE idCliente = '"+n+"'";
+                String DeleteQueryBody4 =  "DELETE FROM direccion WHERE id = '"+cp+"'";
+                try {//
+                    PreparedStatement preparedStatement1 = conn.prepareStatement(DeleteQueryBody);
+                    PreparedStatement preparedStatement2 = conn.prepareStatement(DeleteQueryBody2);
+                    PreparedStatement preparedStatement3 = conn.prepareStatement(DeleteQueryBody3);
+                    PreparedStatement preparedStatement4 = conn.prepareStatement(DeleteQueryBody4);
+
+                    preparedStatement1.executeUpdate();
+                    preparedStatement2.executeUpdate();
+                    preparedStatement3.executeUpdate();
+                    preparedStatement4.executeUpdate();
+
+                    JOptionPane.showMessageDialog(new JFrame(), "La cuenta ha sido borrada con exito");
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(new JFrame(), "No se ha podido crear la cuenta por problemas de acceso a la base de datos");
+                }
+            }
+
+
 
 
     //---

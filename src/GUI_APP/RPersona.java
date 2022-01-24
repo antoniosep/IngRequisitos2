@@ -2,16 +2,12 @@ package GUI_APP;
 
 import Modelo.DBaccess;
 import Modelo.Persona;
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class RPersona {
 
@@ -68,7 +64,6 @@ public class RPersona {
     private JTextField sn;
     private JTextField sa;
     private JTextField f;
-    private JDateChooser dateChooser;
 
 
 
@@ -190,28 +185,22 @@ public class RPersona {
         JButton Registrar = new JButton("Registrar");
         Registrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try{
-                    DBaccess bd= new DBaccess();
-                    dateChooser.setDateFormatString("dd-MM-yyyy");//yyyy-dd-MM
+                DBaccess bd= new DBaccess();
 
-                    // System.out.println(dateChooser.getDate().toString());
-                    SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-                    Date fecha= new Date(21,21,1);
-                    fecha.setTime(dateChooser.getDate().getTime());
-                    //System.out.println(fecha);
+                //El formato de la fecha esta mal
+                //Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
+                Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), new Date(122,1,10),contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
+                //añadir linea del metodo de DbAccess para registrar la persona
+                //new Date(year - 1900, month - 1, day);
 
-                    //El formato de la fecha esta mal
-                    //Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), Date.valueOf(f.getText()),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected());
-                    Persona persona= new Persona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(),fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
-                    //añadir linea del metodo de DbAccess para registrar la persona
-                    //new Date(year - 1900, month - 1, day);
-
-                    //System.out.println(cif.getText()+" "+n.getText()+" "+sn.getText()+" "+pa.getText()+" "+sa.getText()+" "+new Date(2001,1,10),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
-                    bd.crearCuentaPersona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), fecha,contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
-
-                }catch (Exception ex){
-                    ex.printStackTrace();
+                //System.out.println(cif.getText()+" "+n.getText()+" "+sn.getText()+" "+pa.getText()+" "+sa.getText()+" "+new Date(2001,1,10),contra.getText(),rcontra.getText(),c.getText(),Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
+                try {
+                    bd.crearCuentaPersona(cif.getText(),n.getText(),sn.getText(),pa.getText(),sa.getText(), new Date(122,1,10),contra.getText(),rcontra.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),r.getText(),city.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),pais.getText(),Valida.isSelected(), Persona.tipoP.Representante);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
+
+
             }
         });
 
@@ -281,10 +270,11 @@ public class RPersona {
 
 
         GroupLayout gl_panel = new GroupLayout(panel);
-        dateChooser = new JDateChooser();
-       // dateChooser.setCalendar(dateChooser.getInstance());
-        dateChooser.setDateFormatString("yyyy-MM-dd");//yyyy-dd-MM
-        //dateChooser.setCalendar(null);
+
+        JDateChooser dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("MM-dd-yyyy");//yyyy-dd-MM
+        
+
         gl_panel.setHorizontalGroup(
                 gl_panel.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(gl_panel.createSequentialGroup()

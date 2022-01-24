@@ -270,6 +270,7 @@ public class REmpresa {
                     bd.crearCuentaEmpresa(cif.getText(),n.getText(),c.getText(),(num.getText().compareTo("")==0)?0:Integer.parseInt(num.getText()),p.getText(),city.getText(),pais.getText(),r.getText(),(cp.getText().compareTo("")==0)?0:Integer.parseInt(cp.getText()),Valida.isSelected(),contra.getText(),rcontra.getText());
                     //String cif,String nombre,String calle,String numero,String planta,String ciudad, String pais,String region,String cp,Boolean valida,String psw,String psw2
                     //
+
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
